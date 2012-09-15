@@ -1,0 +1,43 @@
+{% load url from future %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>{% block title %}Mini blog{% endblock %}</title>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/smartphone_style.css" media="only screen and (min-device-width : 320px) and (max-device-width : 480px)">
+    {% block js %}
+    {% endblock %}
+</head>
+<body>
+    <div id="container">
+        <header>
+            <figure id="logo">
+                <h1><a href="/">Mini blog</a></h1>
+                <p>Mini blog powered by Django</p>
+            </figure>
+            <nav>
+                <ul>
+                    <li id="create-new-entry"><a href="{% url 'blogs-entry-create' %}">Create new entry</a></li>
+                    {% if user.is_authenticated %}
+                    <li id="logout"><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+                    {% else %}
+                    <li id="login"><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        <section id="contents">
+            {% block contents %}
+            {% endblock %}
+        </section>
+        <footer>
+            <p>Copyright &copy; 2011 Alisue, hashnote.net</p>
+        </footer>
+    </div>
+</body>
+</html>

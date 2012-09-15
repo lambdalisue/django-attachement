@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load url from future %}
+
+{% block js %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}attachment/js/jquery.colorbox.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}attachment/css/colorbox.css">
+<script type="text/javascript">
+    $(function(){
+        $(".iframe").colorbox({
+            'iframe': true,
+            'width': "80%",
+            'height': "80%",
+        });
+    });
+</script>
+{% endblock %}
+
+{% block contents %}
+<h1>{% if object %}{{ object }}{% else %}Create new entry{% endif %}</h1>
+
+<a class="iframe" href="{% url "attachment-window" %}">Attach</a>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <p><input type="submit" value="Submit"></p>
+</form>
+{% endblock %}
+
